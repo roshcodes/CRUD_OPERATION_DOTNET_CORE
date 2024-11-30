@@ -1,0 +1,215 @@
+﻿@model RoshProject.Models.PersonalInfoModel
+@{
+    ViewBag.Title = "Edit Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>@ViewBag.Title</h1>*@
+
+<style>
+    .HeaderClass {
+        background-color: #1b84ff !important;
+        color: white !important;
+        padding: 10px !important;
+        border-bottom: 1px dotted #eee;
+    }
+
+    h5 {
+        margin-bottom: 15px;
+        margin-Top: 15px;
+        border-radius: 5px;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+<div class="row">
+    @using (Html.BeginForm("SaveEdit", "PersonalInfo", FormMethod.Post, new { id = "frmData" }))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <div class="flex-grow-1">
+                        <h4>
+                            @ViewBag.Title
+                        </h4>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 justify-content-end">
+                        <div class="hstack text-nowrap gap-2">
+                            <a class="btn btn-primary me-3" href="/PersonalInfo/List">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-10">
+                <div class="white-block">
+                    <h5 class=" min-w-125px row-dashed HeaderClass">Personal Details</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">First Name</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                                <span class="field-validation-error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Middle Name</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.middleName, new { @class = "form-control", placeholder = "Middle Name" })
+                                <span class="field-validation-error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Last Name</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control email", placeholder = "Email" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Mobile No</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control numberonly mobile", placeholder = "Mobile No", @maxlength = "10" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Address</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", placeholder = "Address" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Country</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Country, new { @class = "form-control", placeholder = "Country" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.State, new { @class = "form-control", placeholder = "State" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">District</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.District, new { @class = "form-control", placeholder = "District" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Country</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.CountryId, Model.CountryList, new { @class = "form-control", placeholder = "Country", id = "CountryId" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.DropDownList("StateId", null, "- Select -", new { @class = "form-control", placeholder = "State", id = "StateId" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">District</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.DropDownList("DistrictId", null, "- Select -", new { @class = "form-control", placeholder = "District", id = "DistrictId" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Pin Code</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.PinCode, new { @class = "form-control", placeholder = "Pin Code", @maxlength = "6" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Active</label><span class="required">*</span>
+                            <div class="form-group">
+                                @Html.CheckBoxFor(model => model.IsSubscribed, new { @class = "form-checkbox", placeholder = "Active" })
+                                <span class="field-validation error text-danger" style="display:none">This Field is Required</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer mt-3 p-10">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-theme submit-data">Submit</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section scripts{
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+    <script src="~/js/CustomJs/Agent.js?v=1.0"></script>
+    <script src="~/js/CommanValidation.js"></script>
+    <script src="~/js/CustomJs/MastersValidation.js?v=1.0"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>$(document).ready(function () {
+            $('#CountryId').change(function () {
+                var countryId = $(this).val(); // Get the selected country ID
+                if (countryId) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/PersonalInfo/GetState",
+                        data: { countryId: countryId }, // Pass countryId as parameter
+                        dataType: "json",
+                        success: function (data) {
+                            var stateDropdown = $('#StateId'); // Get the state dropdown
+                            stateDropdown.empty(); // Clear existing options
+                            var DistrictDropdown = $('#DistrictId'); // Get the District dropdown
+                            DistrictDropdown.empty(); // Clear existing options
+                            stateDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                            DistrictDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                            $.each(data, function (index, item) {
+                                stateDropdown.append($('<option>').text(item.text).attr('value', item.value));
+                            });
+                        }
+                    });
+
+                } else {
+                    stateDropdown: empty();
+                    DistrictDropdown: empty();
+                }
+            });
+            $('#StateId').change(function () {
+                var StateId = $(this).val(); // Get the selected State ID
+                $.ajax({
+                    type: "POST",
+                    url: "/PersonalInfo/GetDistrict",
+                    data: { StateId: StateId }, // Pass StateId as parameter
+                    dataType: "json",
+                    success: function (data) {
+                        var stateDropdown = $('#DistrictId'); // Get the state dropdown
+                        stateDropdown.empty(); // Clear existing options
+                        stateDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                        $.each(data, function (index, item) {
+                            stateDropdown.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });</script>
+
+}

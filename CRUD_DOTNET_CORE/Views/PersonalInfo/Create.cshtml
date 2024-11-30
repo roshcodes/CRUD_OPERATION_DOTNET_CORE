@@ -1,0 +1,261 @@
+﻿@model RoshProject.Models.PersonalInfoModel
+@{
+    ViewBag.Title = "Create Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .HeaderClass {
+        background-color: #1b84ff !important;
+        color: white !important;
+        padding: 10px !important;
+        border-bottom: 1px dotted #eee;
+    }
+
+    h5 {
+        margin-bottom: 15px;
+        margin-Top: 15px;
+        border-radius: 5px;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+<div class="row">
+    @using (Html.BeginForm("SaveCreate", "PersonalInfo", FormMethod.Post, new { id = "frmData" }))
+    {
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center flex-wrap gap-2">
+                    <div class="flex-grow-1">
+                        <h4>
+                            @ViewBag.Title
+                        </h4>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 justify-content-end">
+                        <div class="hstack text-nowrap gap-2">
+                            <a class="btn btn-primary me-3" href="/PersonalInfo/List">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-10">
+                <div class="white-block">
+                    <h5 class="min-w-125px HeaderClass">Personal Details</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="Name">First Name</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control requiredvalidation", @placeholder = "First Name" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">Middle Name</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.middleName, new { @class = "form-control requiredvalidation", @placeholder = "Middle Name" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="Name">Last Name</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control requiredvalidation", @placeholder = "Last Name" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">Email</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control email requiredvalidation", @placeholder = "Email", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="">Mobile No</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control numberonly mobile maxlength", @maxlength = "10", @placeholder = "Mobile" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="">Address</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Address" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">PinCode</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.PinCode, new { @class = "form-control numberonly maxlength", @maxlength = "6", @placeholder = "PinCode", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">Country</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Country, new { @class = "form-control ", @placeholder = "Country", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">State</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @placeholder = "State", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">District</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.District, new { @class = "form-control", @placeholder = "District", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">Country List</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.CountryId, Model.CountryList, new { @class = "form-control form-select-solid", @placeholder = "Country", @id = "CountryId" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">State List</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.StateId, Model.StateList, "- Select -", new { @class = "form-control form-select-solid", @placeholder = "State", @id = "StateId" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">District List</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.DistrictId, Model.DistrictList, "- Select -", new { @class = "form-control form-select-solid", @placeholder = "District", @id = "DistrictId" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="Name">Active</label><span class="required"></span>
+                            <div class="form-group">
+                                @Html.CheckBoxFor(model => model.IsSubscribed, new { @class = "form-checkbox", @placeholder = "Active", @required = "required" })
+                                <span class="field-validation-error text-danger" style="display: none;">This field is required.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer mt-3 p-10">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-theme submit-data">Submit</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section scripts{
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+    <script src="~/js/CustomJs/Agent.js?v=1.0"></script>
+    <script src="~/js/CommanValidation.js"></script>
+    <script src="~/js/CustomJs/MastersValidation.js?v=1.0"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>// Function to populate state dropdown based on the selected country
+        $(document).ready(function () {
+            $('#CountryId').change(function () {
+                var CountryId = $(this).val();
+                if (CountryId) {
+                    // AJAX call to fetch states based on country
+                    $.ajax({
+                        type: "POST",
+                        url: "/PersonalInfo/GetState",
+                        data: { CountryId: CountryId },
+                        dataType: "json",
+                        success: function (data) {
+                            // Populate state dropdown with fetched data
+                            var stateDropdown = $('#StateId');
+                            stateDropdown.empty();
+                            var DistrictDropdown = $('#DistrictId');
+                            DistrictDropdown.empty();
+                            stateDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                            DistrictDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                            $.each(data, function (index, item) {
+                                stateDropdown.append($('<option>').text(item.text).attr('value', item.value));
+                            });
+                        }
+                    });
+                } else {
+                    stateDropdown: empty();
+                    DistrictDropdown.empty();
+                }
+            });
+
+            // Function to populate district dropdown based on the selected state
+            $('#StateId').change(function () {
+                var StateId = $(this).val();
+                // AJAX call to fetch districts based on state
+                $.ajax({
+                    type: "POST",
+                    url: "/PersonalInfo/GetDistrict",
+                    data: { StateId: StateId },
+                    dataType: "json",
+                    success: function (data) {
+                        // Populate district dropdown with fetched data
+                        var stateDropdown = $('#DistrictId');
+                        stateDropdown.empty();
+                        stateDropdown.append($('<option>').text('- Select -').attr('value', '0'));
+                        $.each(data, function (index, item) {
+                            stateDropdown.append($('<option>').text(item.text).attr('value', item.value));
+                        });
+                    }
+                });
+            });
+        });</script>
+}
+@*<h1>Add Employees</h1>
+    <form method="post" action="SaveCreate" class="mt-2">
+        <div class="mb-3">
+            <label for="" class="form-label">First Name</label>
+            <input type="text" class="form-control" asp-for="FirstName">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Middle Name</label>
+            <input type="text" class="form-control" asp-for="middleName">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Last Name</label>
+            <input type="text" class="form-control" asp-for="LastName">
+        </div>
+        <div class="mb-3 ">
+            <label for="" class="form-label">Email</label>
+            <input type="text" class="form-control" asp-for="Email">
+        </div>
+        <div class="mb-3 ">
+            <label for="" class="form-label">MobileNo</label>
+            <input type="text" class="form-control" asp-for="MobileNo">
+        </div>
+        <div class="mb-3 ">
+            <label for="" class="form-label">Address</label>
+            <input type="text" class="form-control" asp-for="Address">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">PinCode</label>
+            <input type="date" class="form-control" asp-for="PinCode">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">State</label>
+            <input type="text" class="form-control" asp-for="State">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Country</label>
+            <input type="text" class="form-control" asp-for="Country">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">District</label>
+            <input type="text" class="form-control" asp-for="District">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>*@

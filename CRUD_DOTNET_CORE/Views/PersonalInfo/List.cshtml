@@ -1,0 +1,113 @@
+﻿@model RoshProject.Models.PersonalInfoModel
+
+@{
+
+    ViewData["Title"] = "All Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-flex flex-wrap gap-2 justify-content-end mb-2">
+    <div class="hstack text-nowrap gap-2">
+        <a class="btn btn-primary me-3" href="/PersonalInfo/Create">Create</a>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header text-center" style="background-color: #e3f2fd;"><h1>Persons List</h1></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table align-middle" id="example" style="margin-top:5px;">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Full Name</th>
+                            @*<th>Last Name</th>*@
+                            <th>Email</th>
+                            <th>MobileNo</th>
+                            <th>Address</th>
+                            <th>PinCode</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 0; }
+                        @if (Model.PersonalList.Count > 0)
+                        {
+                            foreach (var item in Model.PersonalList)
+                            {
+                                <tr class="odd">
+                                    <td class="text-center">@(i+1)</td>
+                                    <td class="text-gray-800 text-hover-primary mb-1 table-col table_TD_color">@item.FirstName</td>
+                                    @*<td>@employee.LastName</td>*@
+                                    <td class="text-gray-800 text-hover-primary mb-1 table-col table_TD_color">@item.Email</td>
+                                    <td class="text-gray-800 text-hover-primary mb-1 table-col table_TD_color">@item.MobileNo</td>
+                                    <td class="text-gray-800 text-hover-primary mb-1 table-col table_TD_color">@item.Address</td>
+                                    <td class="text-gray-800 text-hover-primary mb-1 table-col table_TD_color">@item.PinCode</td>
+                                    <td class="@(!item.IsSubscribed ? "text-danger" : "text-success")">
+                                        @(!item.IsSubscribed ? "Inactive" : "Active")
+                                    </td>
+                                    <td class="text-center table-col table_TD_color">
+                                        <a href="Edit?ID=@item.ID" class="common-Icon"><i class="far fa-solid fa-pen-to-square text-hover-primary text-info"></i></a>
+                                        <a href="Delete?ID=@item.ID" class="common-Icon" onclick="return confirm('Are sure wants to delete?');"><i class="far fa-solid fa-trash text-hover-primary text-danger"></i></a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="modal fade" id="basic-Modal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="basicModalLabel"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">-->
+                <!-- Content will be loaded here from server -->
+            <!--</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+@section scripts{
+    <script>$(document).ready(function () {
+            $('#example').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ]
+            });
+        });</script>
+    @*<script>function showInPopup(ID) {
+            $.ajax({
+                type: "GET",
+                url: '/PersonalInfo/Edit',
+                contentType: "application/json; charset=utf-8",
+                data: { ID: ID },
+                dataType: "html",
+                success: function (response) {
+                    $("#basic-Modal").find('.modal-title').html('Edit Personal Details');
+                    $("#basic-Modal").find(".modal-body").html(response);
+                    $("#basic-Modal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }</script>*@
+}
+
+
+
+
